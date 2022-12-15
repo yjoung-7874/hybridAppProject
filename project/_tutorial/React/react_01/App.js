@@ -6,109 +6,183 @@
  * @flow
  */
 
-import React from 'react';
+import React, { Component } from 'react';
 import {
-  SafeAreaView,
-  StyleSheet,
   ScrollView,
   View,
   Text,
-  StatusBar,
+  StyleSheet
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
-
+// // ex1)
+// class App extends Component {
+//   render() {
+//     return (
+//       <View>
+//         <Text>Hello world</Text>
+//       </View>
+//     )
+//   }
+// }
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
+  background: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+})
+// // ex2)
+// class App extends Component {
+//   render() {
+//     return (
+//       <View style={styles.background}>
+//         <Text>Hello world</Text>
+//       </View>
+//     )
+//   }
+// }
+
+// // ex3) 'state' 
+// //       : 'Javascript object' that stores and manages data which would be rendered in 'Component'
+// //         only available in 'class component' not in 'fuction component'
+// //
+// //         ex) function component
+// //             const App = () => {
+// //               return (
+// //
+// //               )
+// //             }
+// class App extends Component {
+//   state = {
+//     sampleText: 'Hello world',
+//   }
+
+//   render() { 
+//     return ( // 'this' is javascript syntax pointing class 'App'
+//       <View style={styles.background}>
+//         <Text>{this.state.sampleText}</Text> 
+//       </View>
+//     )
+//   }
+// }
+
+// // ex4) 
+// class App extends Component {
+//   state = {
+//     sampleText: 'Hello world',
+//     sampleBoolean: true // false
+//   } // where state is initialized => use setState to change state
+
+//   inputText = () => (
+//     this.state.sampleBoolean ?
+//     <Text>sampleBoolean is true</Text>:
+//     <Text>sampleBoolean is false</Text>
+//   )
+
+//   render() { 
+//     return ( // 'this' is javascript syntax pointing class 'App'
+//       <View style={styles.background}>
+//         {this.inputText()}
+//       </View>
+//     )
+//   }
+// }
+
+// // ex5) 'setState' : 'state' must changed by using 'setState()'(function asynchronously reserves update of state object)
+// class App extends Component {
+//   state = {
+//     sampleText: 'Hello world',
+//     sampleBoolean: true // false
+//   } // where state is initialized
+
+//   inputText = () => (
+//     this.state.sampleBoolean ?
+//     <Text>sampleBoolean is true</Text>:
+//     <Text>sampleBoolean is false</Text>
+//   )
+
+//   changeState = () => {
+//     if (!this.state.sampleBoolean) {
+//       this.setState({
+//         sampleText:"Text Changed!",
+//         sampleBoolean: true
+//       })
+//     } else {
+//       this.setState({
+//         sampleText:"Hello World!",
+//         sampleBoolean: false
+//       })
+//     }
+//   }
+
+//   render() { 
+//     return ( // 'this' is javascript syntax pointing class 'App'
+//       <View style={styles.background}>
+//         <Text onPress={this.changeState}>
+//           {this.state.sampleText}
+//         </Text>
+//       </View>
+//     )
+//   }
+// }
+
+// ex6) async : data copy -> update
+class App extends Component {
+  state = {
+    sampleText: 'Hello world',
+    sampleBoolean: true,
+    sampleNum: 1
+  } 
+
+  inputText = () => (
+    this.state.sampleBoolean ?
+    <Text>sampleBoolean is true</Text>:
+    <Text>sampleBoolean is false</Text>
+  )
+
+  changeState = () => {
+    if (!this.state.sampleBoolean) {
+      this.setState({
+        sampleText:"Text Changed!",
+        sampleBoolean: true
+      })
+    } else {
+      this.setState({
+        sampleText:"Hello World!",
+        sampleBoolean: false
+      })
+    }
+  }
+
+  onAdd = () => {
+    this.setState({
+      sampleNum: sampleNum + 1 // sampleNum would be copied and updated 
+      //sampleNum: 100
+    })
+    // Expected: 
+    // ReferenceError: Can't find variable: sampleNum
+    // 1 -> 100
+    // reference https://onlyfor-me-blog.tistory.com/463
+
+    // this.setState(prevState => {
+    //   return {
+    //     sampleNum: prevState.sampleNum + 1
+    //   }
+    // })
+    // // Expected: 
+    // // Counter works
+  }
+
+  render() { 
+    return (
+      <View style={styles.background}>
+        <Text onPress={this.onAdd}>
+          {this.state.sampleNum}
+        </Text>
+      </View>
+    )
+  }
+}
 
 export default App;
