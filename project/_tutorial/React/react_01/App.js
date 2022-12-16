@@ -7,12 +7,8 @@
  */
 
 import React, { Component } from 'react';
-import {
-  ScrollView,
-  View,
-  Text,
-  StyleSheet
-} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
+import PropsChild from './propsChild';
 
 // // ex1)
 // class App extends Component {
@@ -43,7 +39,7 @@ const styles = StyleSheet.create({
 //   }
 // }
 
-// // ex3) 'state' 
+// // ex3) ** 'state' 
 // //       : 'Javascript object' that stores and manages data which would be rendered in 'Component'
 // //         only available in 'class component' not in 'fuction component'
 // //
@@ -96,12 +92,6 @@ const styles = StyleSheet.create({
 //     sampleBoolean: true // false
 //   } // where state is initialized
 
-//   inputText = () => (
-//     this.state.sampleBoolean ?
-//     <Text>sampleBoolean is true</Text>:
-//     <Text>sampleBoolean is false</Text>
-//   )
-
 //   changeState = () => {
 //     if (!this.state.sampleBoolean) {
 //       this.setState({
@@ -127,19 +117,64 @@ const styles = StyleSheet.create({
 //   }
 // }
 
-// ex6) async : data copy -> update
+// // ex6) state is async : data copy -> update
+// class App extends Component {
+//   state = {
+//     sampleText: 'Hello world',
+//     sampleBoolean: true,
+//     sampleNum: 1
+//   } 
+
+//   changeState = () => {
+//     if (!this.state.sampleBoolean) {
+//       this.setState({
+//         sampleText:"Text Changed!",
+//         sampleBoolean: true
+//       })
+//     } else {
+//       this.setState({
+//         sampleText:"Hello World!",
+//         sampleBoolean: false
+//       })
+//     }
+//   }
+
+//   onAdd = () => {
+//     // this.setState({
+//     //   sampleNum: sampleNum + 1 // sampleNum would be copied and updated 
+//     //   //sampleNum: 100
+//     // })
+//     // // Expected: 
+//     // // ReferenceError: Can't find variable: sampleNum
+//     // // 1 -> 100
+//     // // reference https://onlyfor-me-blog.tistory.com/463
+
+//     this.setState(prevState => {
+//       return {
+//         sampleNum: prevState.sampleNum + 1
+//       }
+//     })
+//     // Expected: 
+//     // Counter works
+//   }
+
+//   render() { 
+//     return (
+//       <View style={styles.background}>
+//         <Text onPress={this.onAdd}>
+//           {this.state.sampleNum}
+//         </Text>
+//       </View>
+//     )
+//   }
+// }
+
+// ex7) ** props : way to transfer data to child component (./propsChild.js)
 class App extends Component {
   state = {
     sampleText: 'Hello world',
-    sampleBoolean: true,
-    sampleNum: 1
-  } 
-
-  inputText = () => (
-    this.state.sampleBoolean ?
-    <Text>sampleBoolean is true</Text>:
-    <Text>sampleBoolean is false</Text>
-  )
+    sampleBoolean: true // false
+  } // where state is initialized => use setState to change state
 
   changeState = () => {
     if (!this.state.sampleBoolean) {
@@ -154,34 +189,12 @@ class App extends Component {
       })
     }
   }
-
-  onAdd = () => {
-    this.setState({
-      sampleNum: sampleNum + 1 // sampleNum would be copied and updated 
-      //sampleNum: 100
-    })
-    // Expected: 
-    // ReferenceError: Can't find variable: sampleNum
-    // 1 -> 100
-    // reference https://onlyfor-me-blog.tistory.com/463
-
-    // this.setState(prevState => {
-    //   return {
-    //     sampleNum: prevState.sampleNum + 1
-    //   }
-    // })
-    // // Expected: 
-    // // Counter works
-  }
-
   render() { 
     return (
       <View style={styles.background}>
-        <Text onPress={this.onAdd}>
-          {this.state.sampleNum}
-        </Text>
+        <PropsChild sText={this.state.sampleText} cState={this.changeState}/>
       </View>
-    )
+    ) // PropsChild Component got props(defined in parents component - sText, cState) from parents component
   }
 }
 
