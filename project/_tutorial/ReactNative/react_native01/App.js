@@ -33,19 +33,48 @@ import {View, Text, StyleSheet} from 'react-native';
 //   }
 // }
 
-// ex2) stylesheet component
+// // ex2) stylesheet component1
+// class App extends Component {
+//   render() {
+//     return (
+//       <View style={styles.mainView}>
+//         <View>
+//           <Text>Hello world</Text>
+//         </View>
+//         <View>
+//           <Text>Hello world</Text>
+//         </View>
+//         <View>
+//           <Text>Hello world</Text>
+//         </View>
+//       </View>
+//     )
+//   }
+// }
+// const styles = StyleSheet.create({
+//   mainView: {
+//     backgroundColor: 'green',
+//     flex: 1,
+//     alignItems: 'center',     // horizontal alignment
+//     justifyContent: 'center', // vertical alignment
+//     marginTop: 10,            // gap with external component
+//     paddingTop:50             // gap with internal component
+//   },
+// })
+
+// ex3) stylesheet component2
 class App extends Component {
   render() {
     return (
       <View style={styles.mainView}>
-        <View>
+        <View style={styles.subView}>
+          <Text style={styles.mainText}>Hello world</Text>
+        </View>
+        <View style={styles.subView}>
           <Text>Hello world</Text>
         </View>
-        <View>
-          <Text>Hello world</Text>
-        </View>
-        <View>
-          <Text>Hello world</Text>
+        <View style={styles.anotherSubView}>
+          <Text style={styles.mainText}>Hello world</Text>
         </View>
       </View>
     )
@@ -54,17 +83,33 @@ class App extends Component {
 const styles = StyleSheet.create({
   mainView: {
     backgroundColor: 'green',
-    flex: 1,
     alignItems: 'center',     // horizontal alignment
     justifyContent: 'center', // vertical alignment
     marginTop: 10,            // gap with external component
-    paddingTop:50             // gap with internal component
+    paddingTop:10,             // gap with internal component
+    flex: 1,                  // take all screen
   },
-  background: {
+  subView: {
+    backgroundColor: 'yellow',
+    marginBottom: 10,
     flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center'
+    width: '50%'              // line breaking: lower lever component follows higher level component (Text is wrapped in View)
+  },
+  anotherSubView: {
+    backgroundColor: 'yellow',
+    marginBottom: 10,
+    flex: 2,                  // subView:antherSubView = 1:2
+    width: '100%',
+    alignItems: 'center',     // horizontal alignment
+    justifyContent: 'center', // vertical alignment
+  },
+  mainText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'red',
+    padding: 20
   }
 })
+
 
 export default App;
