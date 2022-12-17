@@ -3,7 +3,7 @@
 
 // 1. var
 
-// // ex1)
+// ex1)
 // var hello = 'world' // function level scope
 
 // function test() {
@@ -15,9 +15,9 @@
 
 // console.log(hello)
 
-// // Expected 
-// // korea
-// // world
+// Expected 
+// korea
+// world
 
 // // ex2)
 // var hello = 'world' // global
@@ -71,15 +71,15 @@
 // // Using 'let' is much more reasonable than using 'var'
 
 // 3. const
-// // ex6)
-// const num = 5;
+// ex6)
+const num = 5;
 
-// num = 6
+num = 6
 
-// console.log(num)
+console.log(num)
 
-// // Expected
-// // TypeError: Assignment to constant variable : reasonable
+// Expected
+// TypeError: Assignment to constant variable : reasonable
 
 // // ex7)
 // const hello = 'world'
